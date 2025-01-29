@@ -3,7 +3,7 @@ import Navbar from "./Nabar";
 
 const Body = () => {
   return (
-    <div>
+    <div >
       <Navbar />
       <Outlet />
     </div>

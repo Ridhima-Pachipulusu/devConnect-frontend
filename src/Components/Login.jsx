@@ -8,6 +8,7 @@ const Login = () => {
   const [password, setPassword] = useState("Ridhi@123");
   const dispatch = useDispatch();
   const navigate=useNavigate();
+  const [error,setError]=useState();
   const clickHandler = async () => {
     try {
       const res = await axios.post(
@@ -19,8 +20,9 @@ const Login = () => {
         { withCredentials: true }
       );
       dispatch(addUser(res.data));
-      return navigate("/")
+      navigate("/")
     } catch (err) {
+      setError(err?.response?.data?.error || "Something went erong");
       console.log(err.message);
     }
   };
@@ -45,6 +47,7 @@ const Login = () => {
               onChange={(e) => setPassword(e.target.value)}
             ></input>
           </div>
+            <p className=" text-red-600">{error}</p>
           <div className="card-actions justify-center mt-2.5">
             <button className="btn btn-primary" onClick={clickHandler}>
               Login

@@ -20,7 +20,7 @@ const Login = () => {
         { withCredentials: true }
       );
       dispatch(addUser(res.data));
-      navigate("/")
+      return navigate("/")
     } catch (err) {
       setError(err?.response?.data?.error || "Something went erong");
       console.log(err.message);

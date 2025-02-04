@@ -4,6 +4,7 @@ import UpdateProfile from './UpdateProfile';
 
 const Profile = () => {
    const user = useSelector((store) => store.User);
+  
   return (
     user && (<div>
      <UpdateProfile user={user}/>

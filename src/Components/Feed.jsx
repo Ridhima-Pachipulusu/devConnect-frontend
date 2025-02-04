@@ -17,7 +17,9 @@ const Feed = () => {
     } catch (err) {}
   };
   useEffect(() => {
+    if(!feed){
     getFeed();
+    }
   }, []);
   return (
     <div>

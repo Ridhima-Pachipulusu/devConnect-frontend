@@ -10,9 +10,9 @@ const UserCards = ({ user }) => {
       <div className="card-body">
         <h2 className="card-title">{firstName + " " + lastName}</h2>
         <h3 className=" text-lg">{age + " " + gender}</h3>
-        <p className="break-words overflow-hidden w-full">{about}</p>
-        <h2>
-          <span className=" font-bold">Skills :</span>
+        <p className="break-words overflow-hidden w-full text-[15px]">{about}</p>
+        <h2 className=" font-medium ">
+          Skills :
           {skills?.map((skill) => skill).join(",") || "No skills listed"}
         </h2>
         <div className="card-actions justify-center">

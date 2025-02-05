@@ -6,6 +6,7 @@ import appStore from "./Utils/AppStore";
 import Feed from "./Components/Feed";
 import Profile from "./Components/Profile";
 import Connections from "./Components/Connections";
+import Requests from "./Components/Requests";
 const App = () => {
   return (
     <div>
@@ -17,6 +18,7 @@ const App = () => {
               <Route path="/profile" element={<Profile />}></Route>
               <Route path="/login" element={<Login />}></Route>
               <Route path="/connections" element={<Connections />}></Route>
+              <Route path="/requests" element={<Requests/>}></Route>
             </Route>
           </Routes>
         </BrowserRouter>

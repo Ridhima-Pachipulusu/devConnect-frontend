@@ -1,4 +1,4 @@
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import Navbar from "./Nabar";
 import axios from "axios";
 import { useDispatch } from "react-redux";
@@ -8,15 +8,18 @@ import { useEffect } from "react";
 const Body = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location=useLocation()
   const fetchUser = async () => {
     try {
       const res = await axios.get("http://localhost:7777/profile/view", {
         withCredentials: true,
       });
       dispatch(addUser(res.data));
-      navigate("/");
+       if (location.pathname === "/login") {
+         navigate("/");
+       }
     } catch (err) {
-      if(err.status===401)
+      if(err.response.status===401)
       {
         navigate("/login");
         console.log(err);

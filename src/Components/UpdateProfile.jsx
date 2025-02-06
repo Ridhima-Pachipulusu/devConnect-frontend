@@ -3,6 +3,8 @@ import { useDispatch } from "react-redux";
 import UserCards from "./UserCards";
 import axios from "axios";
 import { addUser } from "../Utils/UserSlice";
+import { addFeed } from "../Utils/FeedSlice";
+import { useNavigate } from "react-router-dom";
 
 const UpdateProfile = ({ user }) => {
   const [firstName, setFirstName] = useState(user.firstName);
@@ -14,6 +16,7 @@ const UpdateProfile = ({ user }) => {
   const [skills, setSkills] = useState(user.skills);
   const [toast, setToast] = useState(false);
   const dispatch = useDispatch();
+  const navigate=useNavigate();
   const updateHandler = async () => {
     try {
       const updateData = {
@@ -37,6 +40,15 @@ const UpdateProfile = ({ user }) => {
         setToast(false);
       }, 3000);
       dispatch(addUser(res?.data));
+    } catch (err) {}
+  };
+  const notNowHandler = async () => {
+    try {
+      const res = await axios.get("http://localhost:7777/user/feed", {
+        withCredentials: true,
+      });
+      dispatch(addFeed(res.data));
+      navigate("/");
     } catch (err) {}
   };
   return (
@@ -112,6 +124,9 @@ const UpdateProfile = ({ user }) => {
                 <button className="btn btn-primary" onClick={updateHandler}>
                   Update
                 </button>
+                <button className="btn btn-primary" onClick={notNowHandler}>
+                  Not Now
+                </button>
               </div>
             </div>
           </div>
@@ -120,13 +135,7 @@ const UpdateProfile = ({ user }) => {
           user={{ firstName, lastName, photoUrl, age, gender, about, skills }}
         />
       </div>
-      {toast && (
-        <div className="toast toast-top toast-center">
-          <div className="alert alert-success">
-            <span>Profile Updated successfully.</span>
-          </div>
-        </div>
-      )}
+     
     </>
   );
 };

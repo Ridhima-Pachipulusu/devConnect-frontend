@@ -21,7 +21,7 @@ const Connections = () => {
     fetchConnections();
   }, []);
   if(!connections) return;
-  if(connections.length===0) return <h1>No connections found explore Feed page to make new connections :)</h1>
+  if(connections.length===0) return <h1 className=" flex justify-center font-bold text-2xl mt-5">No connections found explore Feed page to make new connections :)</h1>
   return (
     connections && (
       <div>

@@ -6,26 +6,35 @@ import UserCards from "./UserCards";
 const Feed = () => {
   const dispatch = useDispatch();
   const feed = useSelector((store) => store.Feed);
-  console.log(feed)
+  console.log(feed);
   const getFeed = async () => {
     if (feed) return;
     try {
       const res = await axios.get("http://localhost:7777/user/feed", {
-        withCredentials:true
+        withCredentials: true,
       });
       dispatch(addFeed(res?.data));
     } catch (err) {}
   };
   useEffect(() => {
-    if(!feed){
-    getFeed();
+    if (!feed) {
+      getFeed();
     }
   }, []);
+  if (!feed) return;
+  if (feed.length <= 0)
+    return (
+      <h1 className=" flex justify-center font-bold text-2xl mt-5">
+        No new users found
+      </h1>
+    );
   return (
     <div>
-      {feed && (<div>
-        <UserCards user={feed[0]}/>
-      </div>)}
+      {feed && (
+        <div>
+          <UserCards user={feed[0]} />
+        </div>
+      )}
     </div>
   );
 };

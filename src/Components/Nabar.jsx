@@ -5,11 +5,13 @@ import { removeUser } from "../Utils/UserSlice";
 import { removeFeed } from "../Utils/FeedSlice";
 import { removeConnections } from "../Utils/Connectionslice";
 import { removeRequests } from "../Utils/RequestSlice";
+import { useState } from "react";
 
 const Navbar = () => {
   const selector = useSelector((store) => store.User);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [toast, setToast] = useState(false);
   const logoutHandler = async () => {
     try {
       axios.post("http://localhost:7777/logout", {}, { withCredentials: true });
@@ -20,28 +22,47 @@ const Navbar = () => {
       navigate("/login");
     } catch (err) {}
   };
-
+  const clickHandler = () => {
+    if (!selector) {
+      setToast(true);
+      setTimeout(() => {
+        setToast(false);
+      }, 3000);
+    }
+  };
+  if (!document.cookie.includes("token")) {
+    navigate("/login");
+  }
   return (
     <div className="navbar bg-base-100 shadow-sm">
       <div className="flex-1">
-        <Link to="/" className="btn btn-ghost text-xl">
+        <Link to="/" className="btn btn-ghost text-xl" onClick={clickHandler}>
           DC🔗
         </Link>
       </div>
-      <div className="flex gap-2">
-        <Link
-          to="/requests "
-          className=" mt-1.5 mr-2.5 text-[18px] text-violet-800"
-        >
-          Requests
-        </Link>
-        <Link
-          to="/connections "
-          className=" mt-1.5 mr-2.5 text-[18px] text-violet-800"
-        >
-          Connections
-        </Link>
-        {selector && (
+
+      {selector && (
+        <div className=" flex">
+          <div className=" mt-1.5 mr-2">
+            <Link
+              to="/"
+              className=" mt-1.5 mr-2.5 text-[18px] text-fuchsia-700"
+            >
+              Feed
+            </Link>
+            <Link
+              to="/requests "
+              className=" mt-1.5 mr-2.5 text-[18px] text-violet-800"
+            >
+              Requests
+            </Link>
+            <Link
+              to="/connections "
+              className=" mt-1.5 mr-2.5 text-[18px] text-violet-800"
+            >
+              Connections
+            </Link>
+          </div>
           <div className="dropdown dropdown-end flex">
             <p className=" mt-2 mr-1">Welcome back! {selector.firstName}</p>
             <div
@@ -63,7 +84,6 @@ const Navbar = () => {
               <li>
                 <Link to="/profile" className="justify-between">
                   Profile
-                  <span className="badge">New</span>
                 </Link>
               </li>
               <li>
@@ -71,8 +91,15 @@ const Navbar = () => {
               </li>
             </ul>
           </div>
-        )}
-      </div>
+        </div>
+      )}
+      {toast && (
+        <div className="toast toast-top toast-center">
+          <div className="alert alert-success">
+            <span className=" font-bold">Please Login/Signup</span>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

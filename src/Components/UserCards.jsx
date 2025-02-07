@@ -15,6 +15,7 @@ const UserCards = ({ user }) => {
         { withCredentials: true }
       );
       dispatch(removeExploredFeed(_id));
+      
     } catch (err) {}
   };
   return (

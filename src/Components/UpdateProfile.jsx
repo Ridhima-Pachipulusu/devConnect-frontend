@@ -16,7 +16,7 @@ const UpdateProfile = ({ user }) => {
   const [skills, setSkills] = useState(user.skills);
   const [toast, setToast] = useState(false);
   const dispatch = useDispatch();
-  const navigate=useNavigate();
+  const navigate = useNavigate();
   const updateHandler = async () => {
     try {
       const updateData = {
@@ -48,7 +48,6 @@ const UpdateProfile = ({ user }) => {
         withCredentials: true,
       });
       dispatch(addFeed(res.data));
-      navigate("/");
     } catch (err) {}
   };
   return (
@@ -135,7 +134,15 @@ const UpdateProfile = ({ user }) => {
           user={{ firstName, lastName, photoUrl, age, gender, about, skills }}
         />
       </div>
-     
+      {toast && (
+        <div className="toast toast-top toast-center">
+          <div className="alert alert-success">
+            <span className=" font-bold">
+              Profile updated succefully.Explore feed page
+            </span>
+          </div>
+        </div>
+      )}
     </>
   );
 };

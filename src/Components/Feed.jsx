@@ -29,13 +29,16 @@ const Feed = () => {
       </h1>
     );
   return (
-    <div>
-      {feed && (
-        <div>
-          <UserCards user={feed[0]} />
-        </div>
-      )}
-    </div>
+    <>
+      <div>
+        {feed && (
+          <div>
+            <UserCards user={feed[0]} />
+          </div>
+        )}
+      </div>
+
+    </>
   );
 };
 

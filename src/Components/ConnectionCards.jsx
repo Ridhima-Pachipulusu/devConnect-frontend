@@ -2,13 +2,14 @@ import axios from "axios";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { removeAConnection } from "../Utils/Connectionslice";
+import { Link } from "react-router-dom";
 
 const ConnectionCards = ({ user }) => {
   const { _id, firstName, lastName, age, gender, about, skills, photoUrl } =
     user;
   const dispatch = useDispatch();
   const [toast, setToast] = useState(false);
-  const removeUSer = async (_id) => {
+  const removeUser = async (_id) => {
     try {
       const res = await axios.post(
         "http://localhost:7777/user/remove/" + _id,
@@ -24,24 +25,31 @@ const ConnectionCards = ({ user }) => {
   };
   return (
     <div className=" p-2.5 ">
-      <div className="card card-side bg-base-200 shadow-md">
+      <div className="card w-full card-side bg-base-200 shadow-md h-auto">
         <div className="card-body">
           <h2 className="card-title">{firstName + " " + lastName}</h2>
           <p className="text-[15px]">{age + " , " + gender}</p>
-          <p className=" text-[15px]">{about}</p>
+          <p className=" text-[15px] whitespace-normal break-words">{about}</p>
           <p className=" font-medium text-[15px]">
             Skills :{" "}
             {skills?.map((skill) => skill).join(",") || "No skills listed"}
           </p>
-          <button
-            className=" btn bg-red-500 mt-1 text-[16px] w-24"
-            onClick={() => removeUSer(_id)}
-          >
-            Remove
-          </button>
+          <div className=" flex">
+            <button
+              className=" btn bg-red-500 mt-1 text-[16px] w-24"
+              onClick={() => removeUser(_id)}
+            >
+              Remove
+            </button>
+            <Link to={"/chat/" + _id}>
+              <button className=" btn bg-green-400 mt-1 ml-2 text-[16px] w-24">
+                Chat
+              </button>
+            </Link>
+          </div>
         </div>
         <img
-          className=" w-44 h-44 p-2 rounded-2xl"
+          className=" w-44 h-44 p-2 rounded-2xl mt-7"
           src={photoUrl}
           alt={firstName + " " + "photo"}
         />

@@ -28,7 +28,7 @@ const Login = () => {
       setError(err?.response?.data?.error || "Something went erong");
     }
   };
-  
+
   const signUpHandler = async () => {
     try {
       const res = await axios.post(
@@ -85,6 +85,7 @@ const Login = () => {
           <div>
             <label className=" text-md font-bold w-full">Password</label>
             <input
+              type="password"
               className=" w-full p-2.5 mt-1 border-black border shadow-md rounded-md"
               value={password}
               onChange={(e) => setPassword(e.target.value)}

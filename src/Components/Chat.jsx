@@ -8,6 +8,7 @@ const Chat = () => {
   const { toUserId } = useParams();
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
+  const [online, setOnline] = useState(false);
   const user = useSelector((store) => store.User);
   const userId = user?._id;
   const fetchChatData = async () => {
@@ -30,7 +31,11 @@ const Chat = () => {
   };
   useEffect(() => {
     fetchChatData();
+   
+    setOnline(true);
+    
   }, []);
+  console.log(online)
   useEffect(() => {
     if (!user) return;
     const socket = connection();
@@ -54,8 +59,23 @@ const Chat = () => {
     setNewMessage("");
   };
   return (
-    <div className="w-1/2 mx-auto border-2 border-solid border-gray-400 h-[80vh] m-5 rounded-xl flex flex-col shadow-md">
-      <h1 className="border-b-2 border-gray-400 p-3 text-[18px] ">chat</h1>
+    <div className="w-1/2 mx-auto border-2 border-solid border-gray-400 h-[80vh] m-5  rounded-xl flex flex-col shadow-md">
+      <div className="border-b-2 border-gray-400 p-3 text-[18px] flex">
+        <h1>chat</h1>
+        <div className="inline-grid *:[grid-area:1/1] mt-[10px] ml-2">
+          <div
+            className={
+              "status " +
+              (online
+                ? "status-success animate-ping"
+                : "status-error animate-ping")
+            }
+          ></div>
+          <div
+            className={"status " + (online ? "status-success" : "status-error")}
+          ></div>
+        </div>
+      </div>
       <div className="flex-1 overflow-y-scroll p-5">
         {messages &&
           messages.map((msg) => {

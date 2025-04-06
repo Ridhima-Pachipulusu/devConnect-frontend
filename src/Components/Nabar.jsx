@@ -6,6 +6,7 @@ import { removeFeed } from "../Utils/FeedSlice";
 import { removeConnections } from "../Utils/Connectionslice";
 import { removeRequests } from "../Utils/RequestSlice";
 import { useState } from "react";
+import { BASE_URL } from "../Utils/constants";
 
 const Navbar = () => {
   const selector = useSelector((store) => store.User);
@@ -14,7 +15,7 @@ const Navbar = () => {
   const [toast, setToast] = useState(false);
   const logoutHandler = async () => {
     try {
-      axios.post("http://localhost:7777/logout", {}, { withCredentials: true });
+      axios.post(BASE_URL+"/logout", {}, { withCredentials: true });
       dispatch(removeUser());
       dispatch(removeFeed());
       dispatch(removeConnections());

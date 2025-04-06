@@ -5,6 +5,7 @@ import axios from "axios";
 import { addUser } from "../Utils/UserSlice";
 import { addFeed } from "../Utils/FeedSlice";
 import { useNavigate } from "react-router-dom";
+import { BASE_URL } from "../Utils/constants";
 
 const UpdateProfile = ({ user }) => {
   const [firstName, setFirstName] = useState(user.firstName);
@@ -31,7 +32,7 @@ const UpdateProfile = ({ user }) => {
         updateData.age = Number(age);
       }
       const res = axios.patch(
-        "http://localhost:7777/profile/edit",
+        BASE_URL+"/profile/edit",
         updateData,
         { withCredentials: true }
       );
@@ -44,7 +45,7 @@ const UpdateProfile = ({ user }) => {
   };
   const notNowHandler = async () => {
     try {
-      const res = await axios.get("http://localhost:7777/user/feed", {
+      const res = await axios.get(BASE_URL+"/user/feed", {
         withCredentials: true,
       });
       dispatch(addFeed(res.data));

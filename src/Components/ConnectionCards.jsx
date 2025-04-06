@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { removeAConnection } from "../Utils/Connectionslice";
 import { Link } from "react-router-dom";
+import { BASE_URL } from "../Utils/constants";
 
 const ConnectionCards = ({ user }) => {
   const { _id, firstName, lastName, age, gender, about, skills, photoUrl } =
@@ -12,7 +13,7 @@ const ConnectionCards = ({ user }) => {
   const removeUser = async (_id) => {
     try {
       const res = await axios.post(
-        "http://localhost:7777/user/remove/" + _id,
+        BASE_URL+"/user/remove/" + _id,
         {},
         { withCredentials: true }
       );

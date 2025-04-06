@@ -2,6 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { removeAcceptedRequest } from "../Utils/RequestSlice";
 import axios from "axios";
+import { BASE_URL } from "../Utils/constants";
 
 const RequestCard = ({ user }) => {
   const dispatch = useDispatch();
@@ -10,7 +11,7 @@ const RequestCard = ({ user }) => {
   const handleClick = async (status, _id) => {
     try {
       const res = await axios.post(
-        "http://localhost:7777/request/view/" + status + "/" + _id,
+        BASE_URL+"/request/view/" + status + "/" + _id,
         {},
         { withCredentials: true }
       );

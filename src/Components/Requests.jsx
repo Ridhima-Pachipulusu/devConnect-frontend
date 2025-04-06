@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addRequests } from "../Utils/RequestSlice";
 import RequestCard from "./RequestCard";
+import { BASE_URL } from "../Utils/constants";
 
 const Requests = () => {
   const dispatch = useDispatch();
@@ -10,7 +11,7 @@ const Requests = () => {
   const fetchRequests = async () => {
     try {
       const res = await axios.get(
-        "http://localhost:7777/user/connections/received",
+        BASE_URL+"/user/connections/received",
         { withCredentials: true }
       );
       console.log(res?.data?.data);

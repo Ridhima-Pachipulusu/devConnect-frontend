@@ -4,6 +4,7 @@ import UpdateProfile from "./UpdateProfile";
 import axios from "axios";
 import { addUser } from "../Utils/UserSlice";
 import { useNavigate } from "react-router-dom";
+import { BASE_URL } from "../Utils/constants";
 
 const Profile = () => {
   const dispatch = useDispatch();
@@ -12,7 +13,7 @@ const Profile = () => {
   const user = useSelector((store) => store.User);
   const updateUser = async () => {
     try {
-      const res = await axios.get("http://localhost:7777/profile/view", {
+      const res = await axios.get(BASE_URL+"/profile/view", {
         withCredentials: true,
       });
       dispatch(addUser(res.data));

@@ -4,23 +4,23 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { addUser } from "../Utils/UserSlice";
 import { useEffect } from "react";
+import { BASE_URL } from "../Utils/constants";
 
 const Body = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const location=useLocation()
+  const location = useLocation();
   const fetchUser = async () => {
     try {
-      const res = await axios.get("http://localhost:7777/profile/view", {
+      const res = await axios.get(BASE_URL + "/profile/view", {
         withCredentials: true,
       });
       dispatch(addUser(res.data));
-       if (location.pathname === "/login") {
-         navigate("/");
-       }
+      if (location.pathname === "/login") {
+        navigate("/");
+      }
     } catch (err) {
-      if(err.response.status===401)
-      {
+      if (err.response.status === 401) {
         navigate("/login");
         console.log(err);
       }

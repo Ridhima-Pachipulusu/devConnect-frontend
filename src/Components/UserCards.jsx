@@ -2,6 +2,7 @@ import axios from "axios";
 import React from "react";
 import { useDispatch } from "react-redux";
 import { removeExploredFeed } from "../Utils/FeedSlice";
+import { BASE_URL } from "../Utils/constants";
 
 const UserCards = ({ user }) => {
   const { _id, firstName, lastName, photoUrl, age, gender, about, skills } =
@@ -10,7 +11,7 @@ const UserCards = ({ user }) => {
   const loadFeed = async (status, _id) => {
     try {
       const res = await axios.post(
-        "http://localhost:7777/request/" + status + "/" + _id,
+        BASE_URL+"/request/" + status + "/" + _id,
         {},
         { withCredentials: true }
       );

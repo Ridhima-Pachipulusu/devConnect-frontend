@@ -13,7 +13,7 @@ const Chat = () => {
   const user = useSelector((store) => store.User);
   const userId = user?._id;
   const fetchChatData = async () => {
-    const chat = await axios.get(BASE_URL+"/chat/" + toUserId, {
+    const chat = await axios.get(BASE_URL + "/chat/" + toUserId, {
       withCredentials: true,
     });
     console.log(chat?.data?.messages);
@@ -32,20 +32,25 @@ const Chat = () => {
   };
   useEffect(() => {
     fetchChatData();
-   
-    setOnline(true);
-    
   }, []);
-  console.log(online)
+  console.log(online);
   useEffect(() => {
     if (!user) return;
     const socket = connection();
-    socket.emit("joinChat", { firstName: user?.firstName, userId, toUserId });
-    socket.on("messageReceived", ({ firstName, newMessage }) => {
-      setMessages((messages) => [...messages, { firstName, newMessage }]);
+    socket.emit("user-online", userId);
+    socket.emit("watch-user-status", toUserId);
+    socket.on("user-status", (data) => {
+      if (data.userId == toUserId) {
+        setOnline(data.online);
+      }
+      socket.emit("joinChat", { firstName: user?.firstName, userId, toUserId });
+      socket.on("messageReceived", ({ firstName, newMessage }) => {
+        setMessages((messages) => [...messages, { firstName, newMessage }]);
+      });
     });
     return () => {
       socket.disconnect();
+      socket.off("user-status");
     };
   }, [userId, toUserId]);
   const sendMessage = () => {

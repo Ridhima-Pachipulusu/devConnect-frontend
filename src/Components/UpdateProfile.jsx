@@ -31,11 +31,9 @@ const UpdateProfile = ({ user }) => {
       if (age !== "" && !isNaN(age)) {
         updateData.age = Number(age);
       }
-      const res = axios.patch(
-        BASE_URL+"/profile/edit",
-        updateData,
-        { withCredentials: true }
-      );
+      const res = axios.patch(BASE_URL + "/profile/edit", updateData, {
+        withCredentials: true,
+      });
       setToast(true);
       setTimeout(() => {
         setToast(false);
@@ -45,7 +43,7 @@ const UpdateProfile = ({ user }) => {
   };
   const notNowHandler = async () => {
     try {
-      const res = await axios.get(BASE_URL+"/user/feed", {
+      const res = await axios.get(BASE_URL + "/user/feed", {
         withCredentials: true,
       });
       dispatch(addFeed(res.data));
@@ -89,11 +87,19 @@ const UpdateProfile = ({ user }) => {
                 </div>
                 <div>
                   <label className=" text-md font-bold w-full">Gender</label>
-                  <input
+                  {/* <input
                     className=" w-full p-2.5 mt-1 border-black border shadow-md rounded-md"
                     value={gender}
                     onChange={(e) => setGender(e.target.value)}
-                  ></input>
+                  ></input> */}
+                  <select
+                    className=" w-full p-2.5 mt-1 border-black border shadow-md rounded-md"
+                    value={gender}
+                    onChange={(e) => setGender(e.target.value)}
+                  >
+                    <option value="volvo">Female</option>
+                    <option value="saab">Male</option>
+                  </select>
                 </div>
               </div>
               <div>

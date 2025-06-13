@@ -36,13 +36,13 @@ const UserCards = ({ user }) => {
         </h2>
         <div className="card-actions justify-center">
           <button
-            className="btn bg-blue-500 "
+            className="btn bg-red-400 "
             onClick={() => loadFeed("ignored", _id)}
           >
             Ignore
           </button>
           <button
-            className="btn bg-pink-400"
+            className="btn bg-green-500"
             onClick={() => loadFeed("interested", _id)}
           >
             Interested

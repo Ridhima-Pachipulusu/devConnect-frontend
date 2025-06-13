@@ -35,37 +35,41 @@ const Navbar = () => {
     navigate("/login");
   }
   return (
-    <div className="navbar bg-base-100 shadow-sm">
+    <div className="navbar bg-black  shadow-sm">
+      {/* bg-base-100 */}
       <div className="flex-1">
-        <Link to="/" className="btn btn-ghost text-xl" onClick={clickHandler}>
+        <Link
+          to="/"
+          className="btn btn-ghost text-xl text-white"
+          onClick={clickHandler}
+        >
           DC🔗
         </Link>
       </div>
-
       {selector && (
-        <div className=" flex">
+        <div className=" flex text-white">
           <div className=" mt-1.5 mr-2">
             <Link
               to="/"
-              className=" mt-1.5 mr-2.5 text-[18px] text-fuchsia-700"
+              className=" mt-1.5 mr-5 text-[18px] p-1.5 rounded-md hover:bg-gray-700 focus:outline-2 focus:outline-offset-2 focus:outline-gray-700 active:bg-gray-700 "
             >
               Feed
             </Link>
             <Link
               to="/requests "
-              className=" mt-1.5 mr-2.5 text-[18px] text-violet-800"
+              className=" mt-1.5 mr-4 text-[18px] rounded-md p-1.5 hover:bg-gray-700 focus:outline-2 focus:outline-offset-2 focus:outline-gray-700 active:bg-gray-700"
             >
               Requests
             </Link>
             <Link
               to="/connections "
-              className=" mt-1.5 mr-2.5 text-[18px] text-violet-800"
+              className=" mt-1.5 mr-2.5 text-[18px] rounded-md p-1.5 hover:bg-gray-700 focus:outline-2 focus:outline-offset-2 focus:outline-gray-700 active:bg-gray-700 "
             >
               Connections
             </Link>
           </div>
           <div className="dropdown dropdown-end flex">
-            <p className=" mt-2 mr-1">Welcome back! {selector.firstName}</p>
+            <p className=" mt-2 mr-1">Welcome ! {selector.firstName}</p>
             <div
               tabIndex={0}
               role="button"
